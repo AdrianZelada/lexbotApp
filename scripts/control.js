@@ -24,8 +24,8 @@
   var recorder, audioRecorder;
 
   /**
-   * Represents an audio control that can start and stop recording, 
-   * export captured audio, play an audio buffer, and check if audio 
+   * Represents an audio control that can start and stop recording,
+   * export captured audio, play an audio buffer, and check if audio
    * is supported.
    */
   lexaudio.audioControl = function() {
@@ -61,6 +61,14 @@
       recorder.stop();
     };
 
+
+    /**
+    * Clear buffering audio.
+    */
+    var clearRecording = function() {
+      recorder.clear();
+    };
+
     /**
      * On export complete callback: `onExportComplete`.
      *
@@ -85,7 +93,7 @@
      */
 
     /**
-     * Plays the audio buffer with an HTML5 audio tag. 
+     * Plays the audio buffer with an HTML5 audio tag.
      * @param {Uint8Array} buffer - The audio buffer to play.
      * @param {?onPlaybackComplete} callback - Called when audio playback is complete.
      */
@@ -108,7 +116,7 @@
      * On audio supported callback: `onAudioSupported`.
      *
      * @callback onAudioSupported
-     * @param {boolean} 
+     * @param {boolean}
      */
 
     /**
@@ -128,6 +136,7 @@
     return {
       startRecording: startRecording,
       stopRecording: stopRecording,
+      clearRecording:clearRecording,
       exportWAV: exportWAV,
       play: play,
       supportsAudio: supportsAudio

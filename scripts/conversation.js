@@ -29,7 +29,7 @@
 
 
     var Conversation = function(messageEl) {
-      var message, audioInput, audioOutput, currentState;
+      var message, audioInput, audioOutput, currentState, _this=this;
 
       this.messageEl = messageEl;
 
@@ -46,14 +46,18 @@
       this.onSilence = function() {
         audioControl.stopRecording();
         currentState.state.renderer.clearCanvas();
-        currentState.advanceConversation();
+        if(status){
+          currentState.advanceConversation();
+        }else {
+          audioControl.clearRecording();
+          currentState = new Initial(_this);
+        }
       };
 
       this.transition = function(conversation) {
         if(status){
           currentState = conversation;
           eventCon.emit(currentState.constructor.name,currentState.state)
-          // console.log(currentState.constructor.name)
           var state = currentState.state;
           messageEl.textContent = state.message;
           if (state.message === state.messages.SENDING) {
@@ -63,31 +67,25 @@
           }
         }else{
           messageEl.textContent = this.messages.STOPING;
-          currentState = new Initial(this);
+          setTimeout(()=>{
+            currentState = new Initial(_this);
+          },500)
         }
       };
 
       this.advanceConversation = function() {
-        if(!status){
-          currentState = new Initial(this);
-        }
         currentState.advanceConversation();
       };
 
-      // this.statusConv=function (sw) {
-      //   status=sw;
-      // }
-
       currentState = new Initial(this);
-    }
+    };
 
     var Initial = function(state) {
       this.state = state;
       state.message = state.messages.PASSIVE;
+      state.messageEl.textContent = state.message;
       this.advanceConversation = function() {
         state.renderer.prepCanvas();
-        // console.log(state.constructor.name)
-
         audioControl.startRecording(state.onSilence, state.renderer.visualizeAudioBuffer);
         state.transition(new Listening(state));
       }
@@ -113,17 +111,7 @@
           if (err) {
             console.log(err, err.stack);
           } else {
-            console.log('---');
-            console.log(data);
             document.getElementById('textContenttxt').innerHTML = data.message;
-            console.log('event');
-            //
-            // let myEvent = new CustomEvent("outputData", {
-            //   detail:data,
-            //   bubbles: true,
-            //   cancelable: true
-            // });
-            // document.dispatchEvent(myEvent);
             state.audioOutput = data;
             state.transition(new Speaking(state));
           }
@@ -142,18 +130,15 @@
                 state.renderer.prepCanvas();
                 audioControl.startRecording(state.onSilence, state.renderer.visualizeAudioBuffer);
                 state.transition(new Listening(state));
+              }else{
+                state.transition(new Initial(state));
               }
-              // state.renderer.prepCanvas();
-              // audioControl.startRecording(state.onSilence, state.renderer.visualizeAudioBuffer);
-              // state.transition(new Listening(state));
             }else{
               message.textContent=state.messages.PASSIVE;
             }
           });
         } else if (state.audioOutput.dialogState === 'ReadyForFulfillment') {
-          if(status){
-            state.transition(new Initial(state));
-          }
+          state.transition(new Initial(state));
         }
       }
     };
@@ -174,7 +159,7 @@
           };
           lexruntime = new AWS.LexRuntime({
             region: 'us-east-1',
-            credentials: new AWS.Credentials('xxxxxxx', 'xxxxxxxxxxx', null)
+            credentials: new AWS.Credentials('xxxxxxxxx', 'xxxxxxxxxxx', null)
           });
           conversation.advanceConversation();
         },false);
@@ -189,7 +174,3 @@
   }
   lexaudio.example = example;
 })(lexaudio);
-// "../scripts/control.js",
-//   "../scripts/recorder.js",
-//   "../scripts/renderer.js",
-//   "../scripts/conversation.js"
