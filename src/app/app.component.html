@@ -1,0 +1,147 @@
+<ng-sidebar-container >
+
+  <!-- A sidebar -->
+  <ng-sidebar [(opened)]="_opened" [closeOnClickBackdrop]="closeOnClickBackdrop">
+    <div class="card card-sidebar">
+      <div class="card-header">
+        <div class="row">
+          <h4 class="col-md-9 col-sm-9 text-center" >Status</h4>
+          <div class="col-md-3 col-sm-3 text-right" >
+            <button class="btn btn-light" (click)="_toggleSidebar()">X</button>
+          </div>
+        </div>
+      </div>
+
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><span>Event :</span> {{slots.specialEvent}}</li>
+        <li class="list-group-item"><span>Material :</span> {{slots.material}}</li>
+        <li class="list-group-item"><span>Price :</span> {{slots.priceTo}}</li>
+        <li class="list-group-item"><span>Accessory :</span> {{slots.accessory}}</li>
+        <li class="list-group-item"><span>Operator :</span> {{slots.operator}}</li>
+      </ul>
+    </div>
+  </ng-sidebar>
+
+
+  <ng-sidebar class="sidebar-lg" [(opened)]="_openedList" [mode]="_mode" [position]="_positionList">
+    <div class="card card-sidebar">
+      <div class="card-header">
+        <div class="row">
+          <h4 class="col-md-10 col-sm-9 text-center" >Results</h4>
+          <div class="col-md-2 col-sm-3 text-right" >
+            <button class="btn btn-light" (click)="_toogleListSidebar()">X</button>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngIf="listItems.length==0">
+            Not Results
+          </li>
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of listItems">
+            <div class="container">
+              <div class="row">
+                <div class="col col-md-5 avatar-card">
+                  <img [src]="item.img" alt="" (click)="openDetails(item)">
+                </div>
+                <div class="col col-md-7 data-card">
+                  <p>
+                    <span> Subcategory :</span> {{item.subcategory}}
+                  </p>
+                  <p>
+                    <span> Regular Price :</span> {{item.reg_price}}
+                  </p>
+                  <p>
+                    <span> Sale Price :</span> {{item.sale_price}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-sidebar >
+
+  <ng-sidebar class="sidebar-lg" [(opened)]="_openedDetails" [mode]="_mode" [position]="_positionList">
+    <div class="card">
+      <div class="card-header">
+
+
+        <div class="row">
+          <div class="col-md-3 col-sm-3 text-right" >
+            <button class="btn btn-light" (click)="backDetails()">X</button>
+          </div>
+          <h4 class="col-md-9 col-sm-9 text-center" >Details</h4>
+        </div>
+      </div>
+      <img class="card-img-top avatar-card" [src]="item.img" alt="Card image cap" (click)="openWindow()">
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="container">
+              <div class="row">
+                <div class="col col-md-5">
+                  <span class="subtittle-card">Description :</span>
+                </div>
+                <div class="col col-md-7">
+                  {{item.description}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-5">
+                  <span class="subtittle-card">Category :</span>
+                </div>
+                <div class="col col-md-7">
+                  {{item.category}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-5">
+                  <span class="subtittle-card">Subcategory :</span>
+                </div>
+                <div class="col col-md-7">
+                  {{item.subcategory}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-5">
+                  <span class="subtittle-card">Material :</span>
+                </div>
+                <div class="col col-md-7">
+                  {{item.material}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-5">
+                  <span class="subtittle-card">Regular Price :</span>
+                </div>
+                <div class="col col-md-7">
+                  {{item.reg_price}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col col-md-5">
+                  <span class="subtittle-card">Sale Price :</span>
+                </div>
+                <div class="col col-md-7">
+                  {{item.sale_price}}
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </ng-sidebar>
+
+  <!-- Page content -->
+  <div ng-sidebar-content>
+    <div>
+      <lexaudio (onResponse)="onResponse($event)"></lexaudio>
+      <!--<button (click)="openModalWithComponent()">modal</button>-->
+    </div>
+  </div>
+</ng-sidebar-container>
+
+

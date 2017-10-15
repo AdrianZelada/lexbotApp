@@ -1,0 +1,21 @@
+<div class="audio-control-content" >
+  <p id="audio-control" class="white-circle" (click)="initialConv()">
+    <img src="../assets/images/logo-mojix.svg"/>
+    <canvas class="visualizer"></canvas>
+  </p>
+  <!--<button (click)="initialConv()"> Initial Convertation</button>-->
+  <div class="audio-control-messages">
+    <button (click)="stopConv()"> Stop Convertation</button>
+    <p>
+      <span id="message"></span>
+    </p>
+
+    <!--<p>-->
+    <div id="textContenttxt" style="display: none"></div>
+    <!--</p>-->
+
+    <p>{{transcript}}</p>
+
+  </div>
+
+</div>

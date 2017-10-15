@@ -1,0 +1,78 @@
+<div class="card">
+  <div class="card-header">
+    Quote
+  </div>
+  <img class="card-img-top" [src]="item.img" alt="Card image cap">
+  <div class="card-body">
+    <h4 class="card-title">Card title</h4>
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="container">
+          <div class="row">
+            <div class="col col-md-5">
+              <span class="subtittle-card">Description :</span>
+            </div>
+            <div class="col col-md-7">
+              {{item.description}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-5">
+              <span class="subtittle-card">Category :</span>
+            </div>
+            <div class="col col-md-7">
+              {{item.category}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-5">
+              <span class="subtittle-card">Subcategory :</span>
+            </div>
+            <div class="col col-md-7">
+              {{item.subcategory}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-5">
+              <span class="subtittle-card">Material :</span>
+            </div>
+            <div class="col col-md-7">
+              {{item.material}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-5">
+              <span class="subtittle-card">Regular Price :</span>
+            </div>
+            <div class="col col-md-7">
+              {{item.reg_price}}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-md-5">
+              <span class="subtittle-card">Sale Price :</span>
+            </div>
+            <div class="col col-md-7">
+              {{item.sale_price}}
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--<div class="modal-header">-->
+  <!--<h4 class="modal-title pull-left">{{title}}</h4>-->
+  <!--<button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">-->
+    <!--<span aria-hidden="true">&times;</span>-->
+  <!--</button>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+  <!--&lt;!&ndash;<ul *ngIf="list.length">&ndash;&gt;-->
+    <!--&lt;!&ndash;<li *ngFor="let item of list">{{item}}</li>&ndash;&gt;-->
+  <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+  <!--<button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Close</button>-->
+<!--</div>-->
